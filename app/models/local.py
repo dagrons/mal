@@ -7,7 +7,7 @@ class Local(Document):
     task_id = StringField(primary_key=True)
     asm_file = FileField(required=True)  
     bytes_file = FileField(required=True) 
-    bmp_file = FileField(required=True)   
+    bmp_file = FileField()   
     malware_classification_resnet34 = DictField(required=True)  
     malware_sim_doc2vec = ListField(required=True)              
 
