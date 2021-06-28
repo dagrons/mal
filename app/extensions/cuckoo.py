@@ -81,6 +81,7 @@ class CuckooExecutor():
                         sanity_correct(re, 'report')
                         rep = preprocessing(re['report'])
                         rep.id = id
+                        rep.validate()
                         rep.save()  # save report to mongo
                         self.res[id] = re['report']
                         done = True
