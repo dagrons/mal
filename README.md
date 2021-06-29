@@ -1,6 +1,6 @@
 TODO
 - cfg
-- model should not appear in api layer
+- model should not appear in api layer and utils
 - cuckoo_executor and local_executor should be a service layer unit
 
 
