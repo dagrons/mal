@@ -25,6 +25,5 @@ def register_blueprints(app):
 
 def register_extensions(app):
     mongo.init_app(app)
-    neo.init_app(app)
     cuckoo_executor.init_app(app)
     local_executor.init_app(app)
