@@ -1,3 +1,8 @@
+TODO
+- cfg
+- model should not appear in api layer
+
+
 📦app
 
  ┣ 📂api
