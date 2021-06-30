@@ -52,7 +52,7 @@ def analyze(task):
                 "task ({}) 任务失败, 当前剩余任务({})".format(task['id'], len(Q.q)))
             return
 
-        # to_neo4j(current_app.neo, res.to_json(), task['id'])  # 保存结果到Neo4J
+        to_neo4j(current_app.neo, res.to_json(), task['id'])  # 保存结果到Neo4J
         res.save()
         current_app.logger.info("task ({}) 任务结果入库完成".format(task['id']))
         """"

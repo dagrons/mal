@@ -6,7 +6,7 @@ class Neo():
 
     def init_app(self, app):
         self.g = Graph(app.config['NEO4J_SETTINGS']['url'],
-        username=app.config['NEO4J_SETTINGS']['username'],
-        password=app.config['NEO4J_SETTINGS']['password'])        
+        auth=(app.config['NEO4J_SETTINGS']['username'],
+        app.config['NEO4J_SETTINGS']['password']))  
         app.neo = self.g
 
