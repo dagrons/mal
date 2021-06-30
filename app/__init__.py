@@ -1,9 +1,11 @@
+from app.service import CuckooExecutor, LocalExecutor
 import os
 from flask import Flask
 from .config import config
-from .extensions import mongo, neo, cuckoo_executor, local_executor
+from .extensions import mongo
 from .main import main
 from .api import api
+from .service import local_executor, cuckoo_executor
 
 
 def make_app(config_name=None):
@@ -13,7 +15,9 @@ def make_app(config_name=None):
     app.config.from_object(config[config_name])
 
     register_extensions(app)
-    register_blueprints(app)
+    register_blueprints(app)    
+
+    init_service(app)
 
     return app
 
@@ -25,5 +29,8 @@ def register_blueprints(app):
 
 def register_extensions(app):
     mongo.init_app(app)
-    cuckoo_executor.init_app(app)
-    local_executor.init_app(app)
+
+def init_service(app):
+    with app.app_context():
+        local_executor.init_service()
+        cuckoo_executor.init_service()

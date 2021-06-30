@@ -4,22 +4,25 @@ import requests
 import time
 from app.utils import preprocessing
 from app.models.cuckoo import Cuckoo
+from flask import current_app
 
 class CuckooExecutor():
     """
     cuckoo executor is an extension for handling cuckoo task
     """
 
-    def __init__(self):
+    def __init__(self):        
         self.executor = None
-        self.cuckoo_url = ""
-        self.futures = {}  # all task appear here
+        self.futures = None
+        self.cuckoo_url = None
+        self.cuckoo_token = None
 
-    def init_app(self, app):
+    def init_service(self):
         self.executor = concurrent.futures.ThreadPoolExecutor(
-            max_workers=app.config['MAX_WORKERS'])
-        self.cuckoo_url = app.config['CUCKOO_URL']
-        self.cuckoo_token = app.config['CUCKOO_TOKEN']
+            max_workers=current_app.config['MAX_WORKERS'])
+        self.futures = {}  # all task appear here
+        self.cuckoo_url = current_app.config['CUCKOO_URL']
+        self.cuckoo_token = current_app.config['CUCKOO_TOKEN']
 
     def submit(self, id, file):
         """

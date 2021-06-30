@@ -4,6 +4,7 @@ from .analyze import analyze as model_analyze  # 模型分析
 import concurrent.futures
 import tempfile
 from app.models.local import Local
+from flask import current_app
 
 class LocalExecutor():
     """
@@ -12,12 +13,14 @@ class LocalExecutor():
 
     def __init__(self):
         self.executor = None
+        self.cuckoo_url = None
+        self.futures = None
+
+    def init_service(self):
+        self.executor = concurrent.futures.ThreadPoolExecutor(
+            max_workers=current_app.config['MAX_WORKERS'])                
         self.cuckoo_url = ""
         self.futures = {}  # all task appear here
-
-    def init_app(self, app):
-        self.executor = concurrent.futures.ThreadPoolExecutor(
-            max_workers=app.config['MAX_WORKERS'])        
 
     def submit(self, id, file):
         """

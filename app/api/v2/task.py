@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from . import v2
 from app.utils import compute_md5
-from app.extensions import cuckoo_executor, local_executor
+from app.service import local_executor, cuckoo_executor
 
 
 @v2.route('/task/create', methods=['POST'])

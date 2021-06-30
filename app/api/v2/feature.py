@@ -1,7 +1,7 @@
 from flask import json, abort, send_file
 from flask.json import jsonify
 from . import v2
-from app.extensions import cuckoo, cuckoo_executor, local_executor
+from app.service import cuckoo_executor, local_executor
 from app.models.local import Local
 
 
