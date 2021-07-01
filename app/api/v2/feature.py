@@ -10,6 +10,7 @@ class FeatureAPI():
         v2.add_url_rule('/feature/dashboard', view_func=self.dashboard)
         v2.add_url_rule('/feature/bmp/get/<filename>', view_func=self.get_png)
         v2.add_url_rule('/feature/report/get/<id>', view_func=self.get_report)
+        v2.add_url_rule('/feature/cfg/get/<filename>', view_func=self.get_cfg)
 
     def dashboard(self):
         """
@@ -27,6 +28,17 @@ class FeatureAPI():
             abort(404)
         else:
             return send_file(self.feature_service.get_png(filename), attachment_filename=filename+'.bmp')
+
+    def get_cfg(self, filename):
+        """
+        return cfg(svg) of malware
+
+        :param filename: task id
+        """
+        if self.feature_service.get_cfg(filename) == None:
+            abort(404)
+        else:
+            return send_file(self.feature_service.get_cfg(filename), attachment_filename=filename+'.svg')
 
     def get_report(self, id):
         """

@@ -11,7 +11,7 @@ class TaskAPI():
         v2.add_url_rule('/tasks/create', methods=['POST'], view_func=self.create)
         v2.add_url_rule('/task/create', methods=['POST'], view_func=self.create)
         v2.add_url_rule('/tasks/query/cnt', view_func=self.left_cnt)
-        v2.add_url_rule('/task/left_cnt', view_func=self.left_cnt)        
+        v2.add_url_rule('/task/left_cnt', view_func=self.left_cnt)    
 
     def create(self):
         """

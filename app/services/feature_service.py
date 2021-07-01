@@ -97,3 +97,15 @@ class FeatureService():
             return None
         else:
             return Feature.objects(task_id=filename).first().local.bmp_file
+
+    def get_cfg(self, filename):
+        """
+        get cfg(svg) file of task
+
+        :param filename: task id
+        :return: None or file
+        """
+        if len(Feature.objects(task_id=filename)) < 1:
+            return None
+        else:
+            return Feature.objects(task_id=filename).first().local.cfg_file

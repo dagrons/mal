@@ -5,7 +5,7 @@ import concurrent.futures
 import requests
 
 from app.models.feature import *
-from app.utils.transform import get_asm_from_bytes, get_bytes_from_file
+from app.utils.transform import get_asm_from_bytes, get_bytes_from_file, get_cfg_from_pe
 from app.utils.malware_classification.scripts.transform import pe2bmp
 from app.utils.malware_classification.predict import predict as predict_cls
 from app.utils.malware_sim.predict import predict as predict_sim
@@ -54,9 +54,11 @@ class TaskExecutor():
                 bf, bfpath = tempfile.mkstemp(suffix='.bytes')
                 # contains only .text, .data, .rdata sections
                 pf, pfpath = tempfile.mkstemp(suffix='.bmp')
+                cf, cfpath = tempfile.mkstemp(suffix='.svg')
 
                 get_bytes_from_file(upath, bfpath)
                 get_asm_from_bytes(bfpath, afpath)
+                get_cfg_from_pe(upath, cfpath)
 
                 try:
                     pe2bmp(upath, pfpath)
@@ -72,6 +74,7 @@ class TaskExecutor():
                 res.local.asm_file.put(open(af, 'rb'))
                 res.local.bytes_file.put(open(bf, 'rb'))
                 res.local.bmp_file.put(open(pf, 'rb'))
+                res.local.cfg_file.put(open(cf, 'rb'))
 
                 res.local.malware_classification_resnet34 = predict_cls(pfpath)
                 res.local.malware_sim_doc2vec = predict_sim(bfpath)

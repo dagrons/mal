@@ -12,11 +12,10 @@ it's always a good practice to define a schema even for semi-structued data
 文件类型信息
 """
 
-
-
-
 from mongoengine import *
 import datetime
+
+from mongoengine.fields import FileField
 class Info(EmbeddedDocument):
     package = StringField(required=True)     # exe, elf...
     platform = StringField(required=True)    # linux/win7/...
@@ -99,6 +98,7 @@ class Local(EmbeddedDocument):
     asm_file = FileField(required=True)  # 只包含text区段
     bytes_file = FileField(required=True)  # 只包含text区段
     bmp_file = FileField(required=True)    # 包含text, data, rdata区段
+    cfg_file = FileField(required=True) #  cfg (svg file)
     """
     模型分析结果
     """
