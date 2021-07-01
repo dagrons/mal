@@ -1,11 +1,13 @@
+from app.services.feature_service import FeatureService
 import os
 from flask import Flask
 from .config import config
 from .extensions import mongo
 from .main import main
 from .api import api
-from .service import local_executor, cuckoo_executor
 from .extensions import neo
+from . import services
+from .services import TaskExecutor, FeatureService
 
 
 def make_app(config_name=None):
@@ -15,9 +17,8 @@ def make_app(config_name=None):
     app.config.from_object(config[config_name])
 
     register_extensions(app)
-    register_blueprints(app)    
-
-    init_service(app)
+    register_blueprints(app)
+    register_services(app)
 
     return app
 
@@ -31,7 +32,8 @@ def register_extensions(app):
     mongo.init_app(app)
     neo.init_app(app)
 
-def init_service(app):
+
+def register_services(app):
     with app.app_context():
-        local_executor.init_service()
-        cuckoo_executor.init_service()
+        services.task_executor = TaskExecutor()
+        services.feature_service = FeatureService()

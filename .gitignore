@@ -1,1 +1,4 @@
 *.pyc
+app/static/
+app/templates/
+playground/

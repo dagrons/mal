@@ -60,7 +60,7 @@ services:
       - 5000:5000
     environment: 
       - MONGO_HOST=mongo
-      - CUCKOO_URL="http://10.38.12.120:8090"
+      - CUCKOO_URL=http://10.38.12.120:8090
       - CUCKOO_TOKEN="Bearer PYK9j3-G4zyScn4EDW3eKg"
       - MAX_WOKERS=10
       - NEO4J_PASSWORD=daxiahyh
