@@ -4,56 +4,9 @@ TODO
 - cuckoo_executor and local_executor should be a service layer unit
 
 
-📦app
-
- ┣ 📂api
-
- ┃ ┣ 📜__init__.py
-
- ┃ ┣ 📜feature.py
-
- ┃ ┗ 📜task.py
-
- ┣ 📂auth
-
- ┣ 📂config
-
- ┃ ┣ 📜__init__.py
-
- ┃ ┣ 📜basicConfig.py
-
- ┃ ┣ 📜developmentConfig.py
-
- ┃ ┗ 📜productionConfig.py
-
- ┣ 📂extensions
-
- ┃ ┣ 📜__init__.py
-
- ┃ ┣ 📜cuckoo.py # should be a service layer unit
-
- ┃ ┣ 📜local.py # should be a service layer unit
-
- ┃ ┗ 📜neo4j.py
-
- ┣ 📂main
-
- ┃ ┣ 📜__init__.py
-
- ┃ ┗ 📜routes.py
-
- ┣ 📂mock
-
- ┣ 📂models
-
- ┃ ┗ 📜__init__.py
-
- ┣ 📂static
-
- ┣ 📂templates
-
- ┣ 📂utils
- 
- ┃ ┗ 📜__init__.py
-
- ┗ 📜__init__.py
+# FAQ
+## CUCKOO
+- 401 ERROR
+> token不正确或者文件上传格式不正确
+- 400 ERROR
+> 被cuckoo识别为重复文件, 详细原因不知
