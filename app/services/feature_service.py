@@ -1,12 +1,13 @@
 import numpy as np
 from app.models.feature import *
-import app.services.task_executor as task_executor
 
 
 class FeatureService():
     """
     FeatureService serves all infos about malware features and database statistics
     """
+    def __init__(self, task_executor):
+        self.task_executor = task_executor
 
     def dashboard(self):
         """
@@ -16,7 +17,7 @@ class FeatureService():
 
         # for counting
         res['samples_count'] = Feature.objects.count()  # 当前数据库已有的样本数
-        res['current_count'] = task_executor.left_cnt()                # 正在处理样本数
+        res['current_count'] = self.task_executor.left_cnt()                # 正在处理样本数
         res['recent_count'] = Feature.objects(upload_time__gte=datetime.datetime.utcnow(
         )-datetime.timedelta(days=7)).count()  # 取过去7天内上传的文件数
 
@@ -75,7 +76,7 @@ class FeatureService():
         :param vec: the doc2vec of the malware
         :return: the most five similar malwares id
         """
-        ts = Feature.objects('task_id').only('local.malware_sim_doc2vec')
+        ts = Feature.objects.only('task_id').only('local.malware_sim_doc2vec')
         sims = []
         for t in ts:
             vec2 = np.array(t.local.malware_sim_doc2vec)
