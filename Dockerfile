@@ -7,7 +7,8 @@ COPY . /app
 
 WORKDIR /app
 
-RUN pip3 install -r requirements.txt    
+RUN pip3 install -r requirements.txt && chmod +x binary_requirements.sh &&\
+    ./binary_requirements.sh
 
 ENV LC_ALL=C.UTF-8 LANG=C.UTF-8 FLASK_ENV=development
 
