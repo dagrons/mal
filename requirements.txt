@@ -85,3 +85,5 @@ WTForms==2.3.3
 z3-solver==4.8.10.0
 zipp==3.4.1
 cfg-explorer==0.0.2
+pytest==6.2.4
+pytest-dotenv==0.5.2
