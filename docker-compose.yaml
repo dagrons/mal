@@ -48,7 +48,8 @@ services:
       - /data/neo4j:/data
 
   mal_backend:
-    image: mal_backend
+    # image: mal_backend
+    build: .
     container_name: mal_backend
     restart: always
     networks:
