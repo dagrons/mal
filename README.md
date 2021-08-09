@@ -1,9 +1,12 @@
-# Todo List
-
 TODO
-- cfg
-- asm2vec, 频繁子图
-- 知识图谱
+- TTP翻译 XXXXX
+- APT组织分类  XXXXX
+- docker-cucko X
+
+
+BUG
+- 400 Error Cuckoo  
+- net::ERR:CONNECTIONABORT 
 
 # 项目结构
 
@@ -62,12 +65,5 @@ TODO
 
 
 # FAQ
-
-## CUCKOO
-
-- 401 ERROR
-> token不正确或者文件上传格式不正确
-- 400 ERROR
-> 被cuckoo识别为重复文件, 详细原因不知
 
 

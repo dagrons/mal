@@ -1,17 +1,20 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "/root/mal_ui"
-		},
-		{
-			"path": "/root/Visual-Knowledge-Graph-System/backend"
-		},
-		{
-			"path": "/root/Visual-Knowledge-Graph-System/frontend"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "/root/mal_ui"
+    },
+    {
+      "path": "../kg_new"
+    },
+    {
+      "path": "../kg"
+    },
+    {
+      "path": "../kg_ui"
+    }
+  ],
+  "settings": {}
 }

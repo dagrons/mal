@@ -4,14 +4,18 @@ from . import v2
 from app.utils.compute_md5 import compute_md5
 from app.utils.is_pe import is_pe
 
+
 class TaskAPI():
     def __init__(self, task_executor, feature_service):
         self.task_executor = task_executor
         self.feature_service = feature_service
-        v2.add_url_rule('/tasks/create', methods=['POST'], view_func=self.create)
-        v2.add_url_rule('/task/create', methods=['POST'], view_func=self.create)
+        v2.add_url_rule('/tasks/create',
+                        methods=['POST'], view_func=self.create)
+        v2.add_url_rule(
+            '/task/create', methods=['POST'], view_func=self.create)
         v2.add_url_rule('/tasks/query/cnt', view_func=self.left_cnt)
-        v2.add_url_rule('/task/left_cnt', view_func=self.left_cnt)    
+        v2.add_url_rule('/task/left_cnt', view_func=self.left_cnt)
+        v2.add_url_rule('/task/status/<id>', view_func=self.status)
 
     def create(self):
         """
@@ -45,6 +49,14 @@ class TaskAPI():
                 'filename': id
             })
 
+    def status(self, id):
+        """
+        return status of a task
+
+        :param id: task id 
+        :return: could be empty|running|done|reported|exception
+        """
+        return self.task_executor.status(id)
 
     def left_cnt(self):
         """

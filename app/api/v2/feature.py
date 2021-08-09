@@ -9,7 +9,7 @@ class FeatureAPI():
         self.feature_service = feature_service
         v2.add_url_rule('/feature/dashboard', view_func=self.dashboard)
         v2.add_url_rule('/feature/bmp/get/<filename>', view_func=self.get_png)
-        v2.add_url_rule('/feature/report/get/<id>', view_func=self.get_report)
+        v2.add_url_rule('/feature/report/get/<id>', view_func=self.get_report)        
         v2.add_url_rule('/feature/cfg/get/<filename>', view_func=self.get_cfg)
 
     def dashboard(self):
