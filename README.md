@@ -65,5 +65,18 @@ BUG
 
 
 # FAQ
+1. 环境搭建, 使用virtualenv + virtualenvwrapper 
+```bash
+# run as non-root 
+sudo apt install virtualenv
+sudo apt install python3-pip
+pip3 install virtualenvwrapper
 
+echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
+echo "export WORKON_HOME=~/Envs" >> ~/.bashrc
+echo "source ~/.local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
+pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+pip3 install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+pip3 install -r requirements.txt # 删除pkg-resource, torch, 否则会报错
+```
