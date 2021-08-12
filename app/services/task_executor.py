@@ -4,6 +4,8 @@ import time
 from flask import current_app
 import concurrent.futures
 import requests
+import sys
+import os
 
 from app.models.feature import *
 from app.utils.transform import get_asm_from_bytes, get_bytes_from_file
@@ -228,8 +230,12 @@ class TaskExecutor():
                     current_app.logger.info('task ({}) 结果保存到MongoDB)'.format(id), {
                                             "task_id": id})
                 except Exception as e:
-                    current_app.logger.info('task ({}) 出现异常, {})'.format(id, e), {
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    fname = os.path.split(
+                        exc_tb.tb_frame.f_code.co_filename)[1]
+                    current_app.logger.info('task ({}) 出现异常, {} in {} line {})'.format(id, exc_type, fname, exc_tb.tb_lineno), {
                                             "task_id": id})
+                    raise
 
                 stop_task_logging(task_log_handler)
 

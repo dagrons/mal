@@ -7,13 +7,13 @@
       "path": "/root/mal_ui"
     },
     {
-      "path": "../kg_new"
-    },
-    {
       "path": "../kg"
     },
     {
       "path": "../kg_ui"
+    },
+    {
+      "path": "../docker-cuckoo"
     }
   ],
   "settings": {}
