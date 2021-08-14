@@ -22,14 +22,13 @@ def to_neo4j(g, res_json, filename):
     """
     构建正则表达式以提取字段
     """
+    ip_local = ['192.168.56.101', '192.168.56.1', '255.255.255.255']  # 存放对分析无意义的本地ip和域名
     dllre = re.compile(r'([A-Za-z0-9]+(.dll|.DLL))')  # 获取DLL正则表达式
     mailre = re.compile(r"(\w+@\w+\.\w+)")  # 获取邮件的正则表达式
     ipre = re.compile(
         r'(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)')
-    urlhttpre = re.compile(
-        r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)")
-    urlre = re.compile(
-        r"((www|WWW)[.](?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)")
+    urlhttpre = re.compile(r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)")
+    urlre = re.compile(r"((www|WWW)[.](?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)")
 
     # 定义存放提取字段的列表
     dll_list = []  # 存放dll
@@ -42,16 +41,19 @@ def to_neo4j(g, res_json, filename):
             if '.' in dll_re[0]:
                 dll_list.append(dll_re[0])
 
-    # and 'src' not in line and '192.168.56.101' not in line:  # 导入目的地址
-    if ipre.findall(res_json):
+    if ipre.findall(res_json):  # and 'src' not in line and '192.168.56.101' not in line:  # 导入目的地址
         for ipa in ipre.findall(res_json):
             ww = ''
             ww = '.'.join(ipa)
-            ip_list.append(ww)
+            for ip_temp in ip_local:
+                if ip_temp not in ww:
+                    ip_list.append(ww)
 
     if urlre.findall(res_json):  # 导入http[s]url
         for urla in urlre.findall(res_json):
-            url_list.append(urla[0])
+            for url_temp in ip_local:
+                if url_temp not in urla[0]:
+                    url_list.append(urla[0])
 
     if urlhttpre.findall(res_json):  # 导入url
         for urla in urlhttpre.findall(res_json):
@@ -71,6 +73,7 @@ def to_neo4j(g, res_json, filename):
     ip_list = string_duplicate_4(ip_list)
     url_list = string_duplicate_4(url_list)
     mail_list = string_duplicate_4(mail_list)
+    
 
     # 导入结果到Neo4
     start_node = Node("Malware", name=filename)
@@ -81,7 +84,7 @@ def to_neo4j(g, res_json, filename):
         dll_relation = Relationship(start_node, 'DLL', dll_node)
         g.merge(dll_node, "DLL", "name")
         g.merge(dll_relation, "DLL", "name")
-
+    
     for ip_item in ip_list:  # 创建ip
         ip_node = Node("IP", name=ip_item)
         ip_relation = Relationship(start_node, 'IP', ip_node)
