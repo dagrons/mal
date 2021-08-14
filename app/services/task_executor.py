@@ -269,3 +269,9 @@ class TaskExecutor():
         count of task not reported
         """
         return len([id for id, f in self.futures.items() if f.running()])
+
+    def running_list(self):
+        """
+        running task list        
+        """
+        return [id for id, f in self.futures.items() if f.running()]

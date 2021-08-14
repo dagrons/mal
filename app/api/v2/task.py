@@ -16,6 +16,7 @@ class TaskAPI():
         v2.add_url_rule('/tasks/query/cnt', view_func=self.left_cnt)
         v2.add_url_rule('/task/left_cnt', view_func=self.left_cnt)
         v2.add_url_rule('/task/status/<id>', view_func=self.status)
+        v2.add_url_rule('/task/running_list', view_func=self.running_list)
 
     def create(self):
         """
@@ -63,3 +64,9 @@ class TaskAPI():
         how many task running currently    
         """
         return str(self.task_executor.left_cnt())
+    
+    def running_list(self):
+        """
+        running task list
+        """
+        return jsonify(self.task_executor.running_list())
