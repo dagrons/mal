@@ -119,8 +119,7 @@ class TaskExecutor():
                                 '/tasks/view/' + str(cuckoo_task_id),
                                 headers=headers)
                         except:
-                            continue
-                        break
+                            continue                        
                         if r.json()['task']['status'] == "reported":
                             done = True
                     try:
