@@ -113,10 +113,14 @@ class TaskExecutor():
                     done = False
                     while not done:
                         time.sleep(3)
-                        r = requests.get(
-                            current_app.config['CUCKOO_URL'] +
-                            '/tasks/view/' + str(cuckoo_task_id),
-                            headers=headers)
+                        try:  # 此时如果cuckoo出故障的话, 修复后还是能拿到对应的report, 因为cuckoo重启后对于已经submit的任务会继续执行
+                            r = requests.get(
+                                current_app.config['CUCKOO_URL'] +
+                                '/tasks/view/' + str(cuckoo_task_id),
+                                headers=headers)
+                        except:
+                            continue
+                        break
                         if r.json()['task']['status'] == "reported":
                             done = True
                     try:
@@ -275,3 +279,12 @@ class TaskExecutor():
         running task list        
         """
         return [id for id, f in self.futures.items() if f.running()]
+
+    def pending_list(self):
+        """
+        pending task list
+        """
+        return [id for id, f in self.futures.items() if not f.running() and not f.done()]
+
+    
+        
