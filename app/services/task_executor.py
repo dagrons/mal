@@ -284,6 +284,9 @@ class TaskExecutor():
         pending task list
         """
         return [id for id, f in self.futures.items() if not f.running() and not f.done()]
-
     
-        
+    def pending_cnt(self):
+        """
+        pending cnt
+        """
+        return len(pending_list())

@@ -18,6 +18,7 @@ class TaskAPI():
         v2.add_url_rule('/task/status/<id>', view_func=self.status)
         v2.add_url_rule('/task/running_list', view_func=self.running_list)
         v2.add_url_rule('/task/pending_list', view_func=self.pending_list)
+        v2.add_url_rule('/task/pending_cnt', view_func=self.pending_cnt)        
 
     def create(self):
         """
@@ -77,3 +78,9 @@ class TaskAPI():
         pending task list
         """
         return jsonify(self.task_executor.pending_list())
+
+    def pending_cnt(self):
+        """
+        pending task cnt
+        """
+        return jsonify(self.task_executor.pending_cnt())
