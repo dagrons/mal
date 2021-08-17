@@ -1,4 +1,6 @@
 import numpy as np
+from collections import Counter
+
 from app.models.feature import *
 
 
@@ -50,10 +52,23 @@ class FeatureService():
             for t in ts:
                 if t.static.pe_timestamp.date() <= y:
                     cnt += 1
-            trend_area.append(cnt)
+            trend_area.append({"year": str(y), "value": cnt})
         res['trend_area'] = trend_area
 
         return res
+
+    def get_apt_distribution(self):        
+        type_res = {}
+        for type in ["APT_28", "APT_29", "Dark_Hotel", "Energetic_Bear", "Equation_Group", "Gorgon_Group"]:
+            type_res[type] = 0
+        
+        all_apts = Feature.objects.only("apt_family")
+        for t in all_apts:
+            for k in ["APT_28", "APT_29", "Dark_Hotel", "Energetic_Bear", "Equation_Group", "Gorgon_Group"]:
+                if t.apt_family == k:
+                    type_res[k] += 1
+                    break
+        return type_res
 
     def get_report(self, id):
         """
@@ -76,12 +91,12 @@ class FeatureService():
         :param vec: the doc2vec of the malware
         :return: the most five similar malwares id
         """
-        ts = Feature.objects.only('task_id').only('local.malware_sim_doc2vec')
+        ts = Feature.objects.only('task_id').only('local.malware_sim_doc2vec').only('apt_family')
         sims = []
         for t in ts:
             vec2 = np.array(t.local.malware_sim_doc2vec)
             sims.append((t.task_id, np.dot(vec, vec2) /
-                        (np.linalg.norm(vec)*np.linalg.norm(vec2))))
+                        (np.linalg.norm(vec)*np.linalg.norm(vec2)), t.apt_family))
         sorted(sims, key=lambda x: -x[1])
         return sims[1:6]
 

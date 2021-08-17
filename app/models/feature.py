@@ -76,6 +76,7 @@ class Feature(Document):
     static = EmbeddedDocumentField(Static, required=True)  # 静态分析结果
     network = DictField(required=True)         # 网络分析结果
     debug = DictField(required=True)  # cuckoo debug info
+    apt_family = StringField(default="未知") # APT组织
 
     local = EmbeddedDocumentField(Local, required=True)  # model analysis
 
@@ -86,3 +87,4 @@ class Feature(Document):
     signatures = ListField()                     # signature信息, optional
 
     meta = {'collection': 'features'}  # 存储在名为feature的collection中
+

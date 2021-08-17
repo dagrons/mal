@@ -24,7 +24,7 @@ class TaskExecutor():
     def __init__(self):
         self.executor = concurrent.futures.ThreadPoolExecutor(
             max_workers=current_app.config['MAX_WORKERS'])
-        self.futures = {}
+        self.futures = {}        
 
     def submit(self, id, file):
         """
@@ -244,7 +244,7 @@ class TaskExecutor():
 
         self.futures[id] = self.executor.submit(
             execute, current_app._get_current_object(), id, file)
-
+    
     def status(self, id):
         """
         Check the status of a task
@@ -289,4 +289,4 @@ class TaskExecutor():
         """
         pending cnt
         """
-        return len(pending_list())
+        return len(self.pending_list())

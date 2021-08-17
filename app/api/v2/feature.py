@@ -11,12 +11,19 @@ class FeatureAPI():
         v2.add_url_rule('/feature/bmp/get/<filename>', view_func=self.get_png)
         v2.add_url_rule('/feature/report/get/<id>', view_func=self.get_report)        
         v2.add_url_rule('/feature/cfg/get/<filename>', view_func=self.get_cfg)
+        v2.add_url_rule('/feature/get_apt_distribution', view_func=self.get_apt_distribution)
 
     def dashboard(self):
         """
         infos about the database and running tasks
         """
         return jsonify(self.feature_service.dashboard())
+
+    def get_apt_distribution(self):
+        """
+        apt family distribution
+        """
+        return jsonify(self.feature_service.get_apt_distribution())
 
     def get_png(self, filename):
         """
