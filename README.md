@@ -1,12 +1,7 @@
 TODO
 - TTP翻译 XXXXX
-- APT组织分类  XXXXX
-- docker-cucko X
-
-
-BUG
-- 400 Error Cuckoo  
-- net::ERR:CONNECTIONABORT 
+- deepreflect integration
+- 数据集入库
 
 # 项目结构
 
