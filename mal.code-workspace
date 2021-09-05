@@ -4,7 +4,7 @@
       "path": "."
     },
     {
-      "path": "/root/mal_ui"
+      "path": "../mal_ui"
     },
     {
       "path": "../kg"
