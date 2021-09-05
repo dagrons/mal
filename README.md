@@ -7,9 +7,8 @@ TODO
 ![流程图](http://assets.processon.com/chart_image/613457847d9c081c753a9f0a.png)
 
 # 项目结构
-
+```
 📦app
-
  ┣ 📂api 
  ┃ ┣ 📂v1
  ┃ ┣ 📂v2 # 所有API接口
@@ -60,7 +59,7 @@ TODO
  ┃ ┣ 📜to_neo4j.py # 保存到neo4j数据库
  ┃ ┗ 📜transform.py # pe, bmp, asm, bytes文件之间的转化
  ┗ 📜__init__.py
-
+```
 
 # FAQ
 1. 环境搭建, 使用virtualenv + virtualenvwrapper 
