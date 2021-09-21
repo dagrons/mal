@@ -1,4 +1,4 @@
-version: "3.9" # format <=> docker engine version <=> docker-compose version
+version: "3.3" # format <=> docker engine version <=> docker-compose version
 
 networks:
   mal:

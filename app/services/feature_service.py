@@ -101,7 +101,7 @@ class FeatureService():
             sims.append((t.task_id, np.sqrt(np.sum(np.square(vec - vec2))), t.apt_family))
         # sorted(sims, key=lambda x: -x[1])
         sims = sorted(sims, key=lambda x: -x[1])
-        print (sims)
+        # print (sims)
         return [t for t in sims[1:7] if t[1] != 1] # 跳过自己
 
     def get_png(self, filename):
